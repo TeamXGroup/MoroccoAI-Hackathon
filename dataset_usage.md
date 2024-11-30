@@ -6,7 +6,7 @@ This dataset contains detailed information about articles related to recycling, 
 ### Accessing the Dataset
 The dataset is stored on Google Drive due to its large size. You can download it using the link below:
 
-- [Download the Dataset]('https://drive.google.com/file/d/1-2run9gY7ueFgSbFazc_CqKGKTIh6nvc/view?usp=drive_link')
+- [Download the Dataset](https://drive.google.com/file/d/1-2run9gY7ueFgSbFazc_CqKGKTIh6nvc/view?usp=drive_link)
 
 ### Dataset Format
 - **File Type**: csv
@@ -33,7 +33,7 @@ This is the final processed dataset containing information about recycling-relat
 ### Accessing the Dataset
 Due to its size, the dataset is stored on Google Drive. Download it using the link below:
 
-- [Download the Dataset]('https://docs.google.com/spreadsheets/d/1TEEDXRJieEvEcEBXzdZF-WFh7Oarwkm0/edit?usp=drive_link&ouid=114320308042899513023&rtpof=true&sd=true')
+- [Download the Dataset](https://docs.google.com/spreadsheets/d/1TEEDXRJieEvEcEBXzdZF-WFh7Oarwkm0/edit?usp=drive_link&ouid=114320308042899513023&rtpof=true&sd=true)
 
 ### Dataset Format
 - **File Type**: Excel (`.xls`)
