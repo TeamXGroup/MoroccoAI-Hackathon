@@ -2,7 +2,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class LLMGeneration:
-    def __init__(self, model_path: str ="sshleifer/distilbart-cnn-12-6"):
+    def __init__(self, model_path: str ="AliGuinga/recyclingllm-01-Q8_0-GGUF"):
         """
         Initialize the model and tokenizer.
         :param model_path: The path to the saved model directory.
@@ -12,7 +12,7 @@ class LLMGeneration:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
 
-    def generate_response(self, prompt: str, max_length: int = 50, do_sample: bool = True, top_k: int = 50, top_p: float = 0.95):
+    def generate_response(self, prompt: str, max_length: int = 1024, do_sample: bool = True, top_k: int = 50, top_p: float = 0.95):
         """
         Generate a response from the model given an input prompt.
         :param prompt: The input text prompt for the model.
@@ -28,7 +28,8 @@ class LLMGeneration:
             max_length=max_length, 
             do_sample=do_sample, 
             top_k=top_k, 
-            top_p=top_p
+            top_p=top_p,
+            pad_token_id=self.tokenizer.eos_token_id
         )
         response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response
