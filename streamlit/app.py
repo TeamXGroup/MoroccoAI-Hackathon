@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-from load_llm2 import LLMGeneration
+from load_llm import LLMGeneration
 import pandas as pd
 #from load_gen_img import ImageGenerator
 from huggingface_hub import login
@@ -146,7 +146,7 @@ with st.container():
 
         with st.spinner("Thinking..."):
             # Generate response from the model
-            response = llm.generate_response(prompt=str(user_input), max_tokens=256)
+            response = llm.generate_response(prompt=str(user_input))
 
             # Define a button that can stop the generation
             stop = stop_placeholder.button("Stop Generation")

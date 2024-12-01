@@ -1,16 +1,19 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from huggingface_hub import login
+
 
 class LLMGeneration:
-    def __init__(self, model_path: str ="AliGuinga/recyclingllm-01-Q8_0-GGUF"):
+    def __init__(self, model_path: str ="meta-llama/Llama-3.2-1B"):
         """
         Initialize the model and tokenizer.
         :param model_path: The path to the saved model directory.
         """
+        login('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')
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         self.model = AutoModelForCausalLM.from_pretrained(model_path)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model.to(self.device)
+        #self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        #self.model.to(self.device)
 
     def generate_response(self, prompt: str, max_length: int = 1024, do_sample: bool = True, top_k: int = 50, top_p: float = 0.95):
         """
@@ -24,12 +27,11 @@ class LLMGeneration:
         """
         input_ids = self.tokenizer(prompt, return_tensors="pt").input_ids.to(self.device)
         outputs = self.model.generate(
-            input_ids, 
+            **input_ids, 
             max_length=max_length, 
             do_sample=do_sample, 
             top_k=top_k, 
             top_p=top_p,
-            pad_token_id=self.tokenizer.eos_token_id
         )
         response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response
