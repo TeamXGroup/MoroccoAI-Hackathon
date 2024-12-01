@@ -1,5 +1,6 @@
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from langchain import PromptTemplate, LLMChain
+from langchain.llms import HuggingFacePipeline
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from huggingface_hub import login
 
 
@@ -9,11 +10,15 @@ class LLMGeneration:
         Initialize the model and tokenizer.
         :param model_path: The path to the saved model directory.
         """
-        login('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')
+
+        self.token = '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'
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model = AutoModelForCausalLM.from_pretrained(model_path)
+        self.model = AutoModelForCausalLM.from_pretrained(model_path,use_auth_token=self.token, device_map="auto", torch_dtype="auto")
+        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         #self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         #self.model.to(self.device)
+        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, max_new_tokens=400, temperature=0.3, top_p=0.9)
+
 
     def generate_response(self, prompt: str, max_length: int = 1024, do_sample: bool = True, top_k: int = 50, top_p: float = 0.95):
         """
@@ -25,7 +30,7 @@ class LLMGeneration:
         :param top_p: The cumulative probability of parameter highest probability tokens to keep for nucleus sampling.
         :return: The generated response as a string.
         """
-        input_ids = self.tokenizer(prompt, return_tensors="pt").input_ids.to(self.device)
+        input_ids = self.tokenizer(prompt, return_tensors="pt")
         outputs = self.model.generate(
             **input_ids, 
             max_length=max_length, 

@@ -1,9 +1,7 @@
 import streamlit as st
-import numpy as np
 from load_llm import LLMGeneration
 import pandas as pd
 #from load_gen_img import ImageGenerator
-from huggingface_hub import login
 import pandas as pd
 import time
 
