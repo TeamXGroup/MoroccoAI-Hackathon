@@ -1,0 +1,3 @@
+torch==2.1.1  # i have a gpu so i use 2.1.1+cu118
+transformers==4.28.1
+
